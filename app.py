@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # --- Model Loading ---
-MODEL_DIR = os.path.dirname(os.path.realpath(__file__)) # Gets directory where app.py is
+MODEL_DIR = os.path.dirname(os.path.realpath(__file__))
 MODEL_PATH = os.path.join(MODEL_DIR, 'wildfire_prediction_pipeline.joblib')
 model = None
 
@@ -21,8 +21,6 @@ try:
 except Exception as e:
     print(f"FATAL: Failed to load model on startup: {e}")
     print(traceback.format_exc())
-    # Optional: Depending on requirements, you might want the app to fail startup
-    # raise e
 # --- End Model Loading ---
 
 
@@ -72,8 +70,6 @@ def predict():
         return jsonify({"error": "An error occurred during prediction."}), 500
 
 
-# Run the app (for local testing - Gunicorn will run it in App Runner)
-if __name__ == '__main__':
-# Make sure to set the PORT environment variable for App Runner compatibility
-     port = int(os.environ.get('PORT', 8080))
-     app.run(host='0.0.0.0', port=port, debug=True) # debug=True for local testing ONLY
+# if __name__ == '__main__':
+     # port = int(os.environ.get('PORT', 8080))
+     # app.run(host='0.0.0.0', port=port, debug=True)
